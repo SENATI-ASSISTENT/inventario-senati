@@ -13,6 +13,10 @@ return new class extends Migration
     {
         Schema::create('detections', function (Blueprint $table) {
             $table->id();
+            $table->foreignId('machine_id')->constrained()->onDelete('cascade');
+            $table->string('image_path');
+            $table->text('missing_items');
+            $table->text('detected_items');
             $table->timestamps();
         });
     }

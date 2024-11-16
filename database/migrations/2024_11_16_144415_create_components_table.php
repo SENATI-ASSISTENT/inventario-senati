@@ -13,6 +13,10 @@ return new class extends Migration
     {
         Schema::create('components', function (Blueprint $table) {
             $table->id();
+            $table->foreignId('machine_id')->constrained()->onDelete('cascade');
+            $table->string('name');
+            $table->text('description')->nullable(); 
+            $table->integer('quantity'); 
             $table->timestamps();
         });
     }

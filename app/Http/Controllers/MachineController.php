@@ -40,7 +40,7 @@ class MachineController extends Controller
      */
     public function show(Machine $machine)
     {
-        //
+        return Inertia::render('Machines/Show', compact('machine'));
     }
 
     /**
@@ -48,7 +48,7 @@ class MachineController extends Controller
      */
     public function edit(Machine $machine)
     {
-        //
+        return inertia('Machines/Edit', compact('machine'));
     }
 
     /**
@@ -56,7 +56,8 @@ class MachineController extends Controller
      */
     public function update(UpdateMachineRequest $request, Machine $machine)
     {
-        //
+        $machine->update($request->validated());
+        return redirect()->route('machines.index');
     }
 
     /**

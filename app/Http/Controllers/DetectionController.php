@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use App\Models\Detection;
 use App\Http\Requests\StoreDetectionRequest;
 use App\Http\Requests\UpdateDetectionRequest;
+use App\Models\Machine;
+use Illuminate\Http\Request;
 
 class DetectionController extends Controller
 {
@@ -27,17 +29,25 @@ class DetectionController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(StoreDetectionRequest $request)
+    public function store(Request $request, Machine $machine)
     {
-        //
+        $request->validate([
+            'image_path' => 'required|string|max:255',
+            'missing_items' => 'required|string',
+            'detected_items' => 'required|string',
+        ]);
+
+        $detection = $machine->detections()->create($request->only('image_path', 'missing_items', 'detected_items'));
+
+        return response()->json($detection, 201);
     }
 
     /**
      * Display the specified resource.
      */
-    public function show(Detection $detection)
+    public function show(Machine $machine, Detection $detection)
     {
-        //
+        return response()->json($detection);
     }
 
     /**
@@ -51,16 +61,26 @@ class DetectionController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(UpdateDetectionRequest $request, Detection $detection)
+    public function update(Request $request, Machine $machine, Detection $detection)
     {
-        //
+        $request->validate([
+            'image_path' => 'required|string|max:255',
+            'missing_items' => 'required|string',
+            'detected_items' => 'required|string',
+        ]);
+
+        $detection->update($request->only('image_path', 'missing_items', 'detected_items'));
+
+        return response()->json($detection);
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Detection $detection)
+    public function destroy(Machine $machine, Detection $detection)
     {
-        //
+        $detection->delete();
+
+        return response()->json(null, 204);
     }
 }

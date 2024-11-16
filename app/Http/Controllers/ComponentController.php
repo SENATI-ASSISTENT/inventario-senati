@@ -16,8 +16,8 @@ class ComponentController extends Controller
      */
     public function index()
     {
-        $machines = Component::all();
-        return inertia('Machines/Index', compact('machines'));
+        $components = Component::all();
+        return inertia('Components/Index', compact('components'));
     }
 
     /**

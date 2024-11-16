@@ -31,7 +31,7 @@ class MachineController extends Controller
      */
     public function store(StoreMachineRequest $request)
     {
-        Machine::create($request);
+        Machine::create($request->validated());
         return redirect()->route('machines.index');
     }
 
@@ -64,6 +64,7 @@ class MachineController extends Controller
      */
     public function destroy(Machine $machine)
     {
-        //
+        Machine::destroy($machine);
+        return redirect()->route('machines.index');
     }
 }

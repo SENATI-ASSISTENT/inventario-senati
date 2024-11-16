@@ -1,6 +1,6 @@
 <script setup>
 import AppLayout from "@/Layouts/AppLayout.vue";
-import { Link } from '@inertiajs/vue3';
+import { Link, router } from '@inertiajs/vue3';
 
 const props = defineProps({
     machines: {
@@ -8,6 +8,18 @@ const props = defineProps({
         required: true,
     },
 });
+
+const deleteMachine = (machine) => {
+    router.delete(route('machines.destroy', machine), {
+        onSuccess: () => {
+            alert('Máquina eliminada exitosamente');
+        },
+        onError: (errors) => {
+            console.error('Error al eliminar la máquina:', errors);
+            alert('Hubo un error al eliminar la máquina');
+        },
+    });
+};
 </script>
 
 <template>
@@ -165,6 +177,7 @@ const props = defineProps({
                                                     >
                                                         <button
                                                             type="button"
+                                                            @click="deleteMachine(machine)"
                                                             class="inline-flex items-center gap-x-2 text-sm font-semibold rounded-lg border border-transparent text-blue-600 hover:text-blue-800 focus:outline-none focus:text-blue-800 disabled:opacity-50 disabled:pointer-events-none dark:text-blue-500 dark:hover:text-blue-400 dark:focus:text-blue-400"
                                                         >
                                                             Eliminar

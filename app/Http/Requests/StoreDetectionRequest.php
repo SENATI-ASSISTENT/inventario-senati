@@ -22,7 +22,11 @@ class StoreDetectionRequest extends FormRequest
     public function rules(): array
     {
         return [
-            //
+            'machine_id' => ['required', 'exists:machines,id'],
+            'image_path' => ['required', 'string', 'max:255'], 
+            'missing_items' => ['required', 'string'],
+            'detected_items' => ['required', 'string'], 
+
         ];
     }
 }

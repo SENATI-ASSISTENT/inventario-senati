@@ -9,4 +9,6 @@ class Machine extends Model
 {
     /** @use HasFactory<\Database\Factories\MachineFactory> */
     use HasFactory;
+
+    protected $fillable = ['name', 'description'];
 }

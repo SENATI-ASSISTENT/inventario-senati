@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Machine;
 use App\Http\Requests\StoreMachineRequest;
 use App\Http\Requests\UpdateMachineRequest;
+use Inertia\Inertia;
 
 class MachineController extends Controller
 {
@@ -13,7 +14,8 @@ class MachineController extends Controller
      */
     public function index()
     {
-        //
+        $machines = Machine::all();
+        return inertia('Machines/Index', compact('machines'));
     }
 
     /**
@@ -21,7 +23,7 @@ class MachineController extends Controller
      */
     public function create()
     {
-        //
+        return inertia('Machines/Create');
     }
 
     /**
@@ -29,7 +31,8 @@ class MachineController extends Controller
      */
     public function store(StoreMachineRequest $request)
     {
-        //
+        Machine::create($request->validated());
+        return redirect()->route('machines.index');
     }
 
     /**
@@ -61,6 +64,7 @@ class MachineController extends Controller
      */
     public function destroy(Machine $machine)
     {
-        //
+        Machine::destroy($machine);
+        return redirect()->route('machines.index');
     }
 }

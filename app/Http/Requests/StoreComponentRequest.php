@@ -22,7 +22,9 @@ class StoreComponentRequest extends FormRequest
     public function rules(): array
     {
         return [
-            //
+            'machine_id' => 'required|exists:machines,id',
+            'description' => 'nullable|string',  
+            'quantity' => 'required|integer|min:1', 
         ];
     }
 }
